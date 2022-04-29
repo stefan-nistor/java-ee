@@ -1,0 +1,65 @@
+openapi: 3.0.1
+info:
+  description: Sample Swagger Demo
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Swagger Employee Demo
+  version: 1.0.0
+servers:
+- url: http://localhost/v1
+tags:
+- description: Everything about your Employee
+  name: employee
+paths:
+  /findEmployeeDetails/{employeeId}:
+    get:
+      description: Returns a single Employee
+      operationId: getEmployeeDetails
+      parameters:
+      - description: ID of Employee to return
+        in: path
+        name: employeeId
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Employee'
+          description: successful operation
+        "400":
+          content: {}
+          description: Invalid Employee ID supplied
+        "404":
+          content: {}
+          description: Employee not found
+      summary: Find employee by ID
+      tags:
+      - employee
+      x-accepts: application/json
+components:
+  schemas:
+    Employee:
+      example:
+        firstName: firstName
+        lastName: lastName
+        id: 0
+      properties:
+        id:
+          format: int64
+          type: integer
+        firstName:
+          description: Employee First Name
+          type: string
+        lastName:
+          description: Employee Last Name
+          type: string
+      type: object
+      xml:
+        name: employee
+x-original-swagger-version: "2.0"
+
